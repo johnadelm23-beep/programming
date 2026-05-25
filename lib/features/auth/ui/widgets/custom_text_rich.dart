@@ -4,7 +4,13 @@ import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/auth/ui/register_screen.dart';
 
 class CustomTextRich extends StatelessWidget {
-  const CustomTextRich({super.key});
+  const CustomTextRich({
+    super.key,
+    required this.textOne,
+    required this.textTwo,
+  });
+  final String textOne;
+  final String textTwo;
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +18,37 @@ class CustomTextRich extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account? ",
+          textOne,
           style: TextStyle(fontSize: 14.sp, color: Colors.grey),
         ),
         GestureDetector(
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (c) => RegisterScreen()),
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const RegisterScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0);
+                      const end = Offset.zero;
+                      const curve = Curves.ease;
+
+                      final tween = Tween(
+                        begin: begin,
+                        end: end,
+                      ).chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+              ),
             );
           },
           child: Text(
-            "Register",
+            textTwo,
             style: TextStyle(
               fontSize: 18.sp,
               color: AppColors.primaryPurple,

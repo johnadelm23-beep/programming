@@ -8,75 +8,107 @@ class CustomHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 300,
       width: double.infinity,
       child: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 40.h,
+            top: 30.h,
             left: 20.w,
             right: 20.w,
-            child: Opacity(
-              opacity: 0.15,
-              child: Container(
-                padding: EdgeInsets.all(16.r),
-                decoration: BoxDecoration(
-                  color: AppColors.cardColor,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "class Developer {",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontFamily: 'monospace',
+            child: Transform.rotate(
+              angle: -0.05,
+              child: Opacity(
+                opacity: 0.10,
+                child: Container(
+                  padding: EdgeInsets.all(18.r),
+                  decoration: BoxDecoration(
+                    color: AppColors.cardColor,
+                    borderRadius: BorderRadius.circular(16.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
                       ),
-                    ),
-                    Text(
-                      "  void code() {",
-                      style: TextStyle(
-                        color: Colors.purple,
-                        fontFamily: 'monospace',
+                    ],
+                  ),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "class Developer {",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "    print(\"Keep Coding\");",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontFamily: 'monospace',
+                      SizedBox(height: 6),
+                      Text(
+                        "  void learn() {",
+                        style: TextStyle(
+                          color: Colors.purple,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                    Text("  }", style: TextStyle(color: Colors.purple)),
-                    Text("}", style: TextStyle(color: Colors.blue)),
-                  ],
+                      SizedBox(height: 6),
+                      Text(
+                        "    print(\"Keep Coding \");",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "  }",
+                        style: TextStyle(
+                          color: Colors.purple,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "}",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
+
           Positioned(
             bottom: 20.h,
             child: Container(
-              width: 80.w,
-              height: 70.h,
+              width: 90.w,
+              height: 80.h,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [AppColors.primaryPurple, AppColors.primaryBlue],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(20.r),
+                borderRadius: BorderRadius.circular(24.r),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primaryPurple.withValues(alpha: 0.5),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
+                    color: AppColors.primaryPurple.withOpacity(0.4),
+                    blurRadius: 25,
+                    offset: const Offset(0, 12),
                   ),
                 ],
               ),
-              child: Icon(Icons.code, color: Colors.white, size: 40.r),
+              child: Icon(Icons.code, color: Colors.white, size: 42.r),
             ),
           ),
         ],

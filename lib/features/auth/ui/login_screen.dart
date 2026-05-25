@@ -11,19 +11,15 @@ import 'package:programmin/features/home/ui/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   bool _isLoading = false;
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -31,18 +27,21 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
-
-      Future.delayed(const Duration(seconds: 2), () {
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() => _isLoading = true);
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      if (!mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
+      );
+    } finally {
+      if (mounted) {
         setState(() => _isLoading = false);
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (c) => HomeScreen()),
-          (r) => false,
-        );
-      });
+      }
     }
   }
 
@@ -54,17 +53,15 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             const CustomHeader(),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0.w),
               child: Form(
                 key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 24.h),
-
-                    // Title
                     Text(
                       "Welcome Back",
                       style: TextStyle(
@@ -73,43 +70,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     SizedBox(height: 8.h),
-
                     Text(
                       "Login to continue your coding journey",
                       style: TextStyle(color: Colors.grey, fontSize: 16.sp),
                     ),
-
                     SizedBox(height: 32.h),
-
-                    // Email
                     CustomTextFormField(
                       hintText: "Email",
                       icon: Icons.email,
                       controller: _emailController,
-                      validator: (s) {
-                        return AppValidator.email(s);
-                      },
+                      validator: AppValidator.email,
                     ),
-
                     SizedBox(height: 16.h),
-
-                    // Password
                     CustomTextFormField(
                       hintText: "Password",
                       icon: Icons.lock,
                       isObsecure: true,
                       controller: _passwordController,
-                      validator: (s) {
-                        return AppValidator.password(s);
-                      },
+                      validator: AppValidator.password,
                     ),
-
                     SizedBox(height: 24.h),
-
                     CustomAppButton(
-                      text: _isLoading ? "Loading..." : "Login",
+                      text: _isLoading ? "Logging in..." : "Login",
                       onPressed: _isLoading ? null : _login,
                     ),
 
@@ -119,20 +102,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       "or continue with",
                       style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
-
                     SizedBox(height: 24.h),
-
-                    // Google Button
-                    CustomSignInGoogleButton(
+                    const CustomSignInGoogleButton(
                       text: "Continue With Google",
                       icon: "assets/icons/google.svg",
                       backgroundColor: AppColors.backgroundColor,
                     ),
-
                     SizedBox(height: 32.h),
-
-                    const CustomTextRich(),
-
+                    const CustomTextRich(
+                      textOne: "Don't have an account? ",
+                      textTwo: "Sign Up",
+                    ),
                     SizedBox(height: 24.h),
                   ],
                 ),
