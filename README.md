@@ -29,10 +29,15 @@ A Flutter-based educational mobile application designed to help beginners learn 
 ## 📂 Project Structure
 lib/
 │
+
 ├── core/ # App core (theme, utils, constants)
+
 ├── features/ # App features (auth, home, courses)
+
 ├── widgets/ # Reusable widgets
+
 └── main.dart
+
 
 ---
 
