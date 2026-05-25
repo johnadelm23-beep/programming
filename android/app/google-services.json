@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "489957335274",
+    "project_id": "programming-a4595",
+    "storage_bucket": "programming-a4595.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489957335274:android:942bacc6a03f80fbfdf793",
+        "android_client_info": {
+          "package_name": "com.example.programmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK4HDlL-5mb8nA9X_9U6VULr0GVvBAXpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

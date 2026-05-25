@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:programmin/core/theme/app_colors.dart';
+import 'package:programmin/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:programmin/features/auth/ui/register_screen.dart';
 
 class CustomTextRich extends StatelessWidget {
@@ -27,7 +29,10 @@ class CustomTextRich extends StatelessWidget {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) =>
-                    const RegisterScreen(),
+                    BlocProvider(
+                      create: (context) => AuthCubit(),
+                      child: const RegisterScreen(),
+                    ),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                       const begin = Offset(1.0, 0.0);
