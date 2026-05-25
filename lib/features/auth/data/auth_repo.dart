@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,14 @@ class AuthRepo {
 
       await response.user!.updateDisplayName(name);
 
-      debugPrint(response.user!.uid);
+      debugPrint(response.user?.uid ?? "");
 
+      addUser(
+        name: name,
+        email: email,
+        password: password,
+        uId: response.user!.uid,
+      );
       return response;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -28,7 +35,7 @@ class AuthRepo {
       } else if (e.code == 'invalid-email') {
         throw 'Invalid email address.';
       } else {
-        throw e.message ?? 'Authentication error';
+        throw e.message ?? 'Authentication Failed';
       }
     } catch (e) {
       throw e.toString();
@@ -61,5 +68,21 @@ class AuthRepo {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  static Future<void> addUser({
+    required String name,
+    required String email,
+    required String password,
+    required String uId,
+  }) async {
+    try {
+      FirebaseFirestore.instance.collection("users").doc(uId).set({
+        " name": name,
+        " email": email,
+        "password": password,
+      });
+      // ignore: empty_catches
+    } catch (e) {}
   }
 }
