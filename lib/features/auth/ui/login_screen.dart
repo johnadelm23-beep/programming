@@ -9,6 +9,7 @@ import 'package:programmin/features/auth/ui/widgets/custom_header.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_sign_in_google_button.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_text_form_field.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_text_rich.dart';
+import 'package:programmin/features/home/cubit/cubit/home_cubit.dart';
 import 'package:programmin/features/home/ui/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,6 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _googleLogin() {
+    context.read<AuthCubit>().signInWithGoogle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthSuccessState) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => HomeScreen()),
+              MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => HomeCubit(),
+                  child: const HomeScreen(),
+                ),
+              ),
               (route) => false,
             );
           }
@@ -63,103 +73,111 @@ class _LoginScreenState extends State<LoginScreen> {
         },
 
         builder: (context, state) {
+          final isLoading = state is AuthLoadingState;
+
           return Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const CustomHeader(),
+              AbsorbPointer(
+                absorbing: isLoading,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const CustomHeader(),
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            SizedBox(height: 24.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 24.h),
 
-                            Text(
-                              "Welcome Back",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.bold,
+                              Text(
+                                "Welcome Back",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
 
-                            SizedBox(height: 8.h),
+                              SizedBox(height: 8.h),
 
-                            Text(
-                              "Login to continue your coding journey",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16.sp,
+                              Text(
+                                "Login to continue your coding journey",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16.sp,
+                                ),
                               ),
-                            ),
 
-                            SizedBox(height: 32.h),
+                              SizedBox(height: 32.h),
 
-                            CustomTextFormField(
-                              hintText: "Email",
-                              icon: Icons.email,
-                              controller: _emailController,
-                              validator: AppValidator.email,
-                            ),
-
-                            SizedBox(height: 16.h),
-
-                            CustomTextFormField(
-                              hintText: "Password",
-                              icon: Icons.lock,
-                              isObsecure: true,
-                              controller: _passwordController,
-                              validator: AppValidator.loginPassword,
-                            ),
-
-                            SizedBox(height: 24.h),
-
-                            CustomAppButton(
-                              text: "Login",
-                              onPressed: state is AuthLoadingState
-                                  ? null
-                                  : _login,
-                            ),
-
-                            SizedBox(height: 24.h),
-
-                            Text(
-                              "or continue with",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14.sp,
+                              /// EMAIL
+                              CustomTextFormField(
+                                hintText: "Email",
+                                icon: Icons.email,
+                                controller: _emailController,
+                                validator: AppValidator.email,
                               ),
-                            ),
 
-                            SizedBox(height: 24.h),
+                              SizedBox(height: 16.h),
 
-                            const CustomSignInGoogleButton(
-                              text: "Continue With Google",
-                              icon: "assets/icons/google.svg",
-                              backgroundColor: AppColors.backgroundColor,
-                            ),
+                              /// PASSWORD
+                              CustomTextFormField(
+                                hintText: "Password",
+                                icon: Icons.lock,
+                                isObsecure: true,
+                                controller: _passwordController,
+                                validator: AppValidator.password,
+                              ),
 
-                            SizedBox(height: 32.h),
+                              SizedBox(height: 24.h),
 
-                            const CustomTextRich(
-                              textOne: "Don't have an account? ",
-                              textTwo: "Sign Up",
-                            ),
+                              /// LOGIN BUTTON
+                              CustomAppButton(
+                                text: isLoading ? "Loading..." : "Login",
+                                onPressed: isLoading ? null : _login,
+                              ),
 
-                            SizedBox(height: 24.h),
-                          ],
+                              SizedBox(height: 24.h),
+
+                              Text(
+                                "or continue with",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+
+                              SizedBox(height: 24.h),
+
+                              CustomSignInGoogleButton(
+                                onTap: _googleLogin,
+                                text: "Continue With Google",
+                                icon: "assets/icons/google.svg",
+                                backgroundColor: AppColors.backgroundColor,
+                              ),
+
+                              SizedBox(height: 32.h),
+
+                              const CustomTextRich(
+                                textOne: "Don't have an account? ",
+                                textTwo: "Sign Up",
+                              ),
+
+                              SizedBox(height: 24.h),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
-              if (state is AuthLoadingState)
+              /// LOADING OVERLAY
+              if (isLoading)
                 Container(
                   color: Colors.black54,
                   child: const Center(
