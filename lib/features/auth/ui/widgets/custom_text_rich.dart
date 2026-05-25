@@ -29,10 +29,7 @@ class CustomTextRich extends StatelessWidget {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) =>
-                    BlocProvider(
-                      create: (context) => AuthCubit(),
-                      child: const RegisterScreen(),
-                    ),
+                    const RegisterScreen(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                       const begin = Offset(1.0, 0.0);

@@ -8,7 +8,9 @@ class CustomSignInGoogleButton extends StatelessWidget {
     required this.text,
     required this.icon,
     required this.backgroundColor,
+    required this.onTap,
   });
+  final void Function() onTap;
   final String text;
   final String icon;
   final Color backgroundColor;
@@ -23,7 +25,7 @@ class CustomSignInGoogleButton extends StatelessWidget {
         border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
       ),
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: onTap,
         style: OutlinedButton.styleFrom(
           side: BorderSide.none,
           shape: RoundedRectangleBorder(

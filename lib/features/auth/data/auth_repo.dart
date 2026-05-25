@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:programmin/features/auth/data/models/user_model.dart';
 
 class AuthRepo {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -78,11 +80,76 @@ class AuthRepo {
   }) async {
     try {
       FirebaseFirestore.instance.collection("users").doc(uId).set({
-        " name": name,
-        " email": email,
+        "name": name,
+        "email": email,
         "password": password,
+        "isBlocked": false,
       });
       // ignore: empty_catches
     } catch (e) {}
+  }
+
+  static Future<UserData?> getUserData() async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser == null) return null;
+
+      final user = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUser.uid)
+          .get();
+
+      final data = user.data();
+
+      if (data?["isBlocked"] == true) return null;
+
+      return UserData.fromJson(data ?? {});
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        throw "Google sign-in cancelled";
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+      final user = userCredential.user;
+      if (user == null) {
+        throw "User not found";
+      }
+      final userRef = FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid);
+      final doc = await userRef.get();
+      final data = doc.data();
+      if (data != null && data["isBlocked"] == true) {
+        await FirebaseAuth.instance.signOut();
+        throw "This account is blocked";
+      }
+      await userRef.set({
+        "uid": user.uid,
+        "name": user.displayName ?? "User",
+        "email": user.email ?? "",
+        "photo": user.photoURL ?? "",
+        "isBlocked": false,
+        "provider": "google",
+        "createdAt": FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+      return userCredential;
+    } catch (e) {
+      throw e.toString();
+    }
   }
 }
