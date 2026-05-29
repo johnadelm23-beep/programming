@@ -145,7 +145,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             ),
           ),
 
-          // ================= FLOATING DOTS =================
           CustomFloatingDots(
             floatController: floatController,
             size: size,
