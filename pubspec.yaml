@@ -21,7 +21,7 @@ dependencies:
   cloud_firestore: ^6.4.1
   google_sign_in: ^5.4.4
   lottie: ^3.3.3
-  iconly: ^1.0.1
+  iconly: ^1.0.0
 
 dev_dependencies:
   flutter_test:
