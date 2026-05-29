@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:programmin/core/theme/app_colors.dart';
-import 'package:programmin/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:programmin/features/auth/ui/register_screen.dart';
 
 class CustomTextRich extends StatelessWidget {
