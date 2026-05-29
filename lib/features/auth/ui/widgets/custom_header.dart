@@ -92,8 +92,8 @@ class CustomHeader extends StatelessWidget {
             bottom: 20.h,
             child: Image.asset(
               "assets/icons/mora logo 5.png",
-              width: 50.w,
-              height: 50.h,
+              width: 150.w,
+              height: 100.h,
             ),
           ),
         ],
