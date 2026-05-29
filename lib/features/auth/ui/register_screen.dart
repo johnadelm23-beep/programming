@@ -9,7 +9,6 @@ import 'package:programmin/features/auth/ui/widgets/custom_app_button.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_header.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_text_form_field.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
-import 'package:programmin/features/home/cubit/cubit/home_cubit.dart';
 import 'package:programmin/features/home/ui/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
