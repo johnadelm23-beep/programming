@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
 import 'package:programmin/features/home/ui/home_screen.dart';
+import 'package:programmin/features/mainScreen/ui/main_shell_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(
           builder: (c) {
             if (FirebaseAuth.instance.currentUser != null) {
-              return const HomeScreen();
+              return const MainShellScreen();
             } else {
               return const LoginScreen();
             }

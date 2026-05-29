@@ -90,25 +90,10 @@ class CustomHeader extends StatelessWidget {
 
           Positioned(
             bottom: 20.h,
-            child: Container(
-              width: 90.w,
-              height: 80.h,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.primaryPurple, AppColors.primaryBlue],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(24.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.4),
-                    blurRadius: 25,
-                    offset: const Offset(0, 12),
-                  ),
-                ],
-              ),
-              child: Icon(Icons.code, color: Colors.white, size: 42.r),
+            child: Image.asset(
+              "assets/icons/mora logo 5.png",
+              width: 50.w,
+              height: 50.h,
             ),
           ),
         ],
