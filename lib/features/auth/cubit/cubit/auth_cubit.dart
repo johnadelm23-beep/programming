@@ -11,10 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       final response = await AuthRepo.login(email: email, password: password);
-
-      if (response != null) {
-        emit(AuthSuccessState(response.user!.uid));
-      }
+      emit(AuthSuccessState(response.user!.uid));
     } catch (e) {
       emit(AuthErrorState(e.toString()));
     }
@@ -24,9 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoadingState());
     try {
       final response = await AuthRepo.signInWithGoogle();
-      if (response != null) {
-        emit(AuthSuccessState(response.user?.uid ?? ""));
-      }
+      emit(AuthSuccessState(response.user?.uid ?? ""));
     } catch (e) {
       emit(AuthErrorState(e.toString()));
     }
@@ -45,10 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-
-      if (response != null) {
-        emit(AuthSuccessState(response.user!.uid));
-      }
+      emit(AuthSuccessState(response.user!.uid));
     } catch (e) {
       emit(AuthErrorState(e.toString()));
     }
