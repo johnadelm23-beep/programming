@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import 'package:programmin/core/theme/app_colors.dart';
+import 'package:programmin/features/ai/ui/ai_chat.dart';
 import 'package:programmin/features/courses/ui/courses_screen.dart';
 import 'package:programmin/features/home/ui/home_screen.dart';
 import 'package:programmin/features/profile/ui/profile_screen.dart';
@@ -20,6 +21,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
     HomeScreen(),
     CoursesScreen(),
     ProfileScreen(),
+    ChatScreen(),
   ];
 
   void onTabChanged(int index) {
@@ -33,7 +35,6 @@ class _MainShellScreenState extends State<MainShellScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
 
-      // 🔥 IMPORTANT: keeps state (NO reload)
       body: IndexedStack(index: currentIndex, children: screens),
 
       bottomNavigationBar: Container(
@@ -50,6 +51,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
             _buildItem(IconlyLight.home, IconlyBold.home, "Home", 0),
             _buildItem(IconlyLight.bookmark, IconlyBold.bookmark, "Courses", 1),
             _buildItem(IconlyLight.profile, IconlyBold.profile, "Profile", 2),
+            _buildItem(IconlyLight.chat, IconlyLight.chat, "Demo Chat", 3),
           ],
         ),
       ),
