@@ -1,12 +1,21 @@
-part of 'home_cubit.dart';
+import 'package:meta/meta.dart';
+import 'package:programmin/features/auth/data/models/user_model.dart';
 
 @immutable
-sealed class HomeState {}
+abstract class HomeState {}
 
-final class HomeInitial extends HomeState {}
+class HomeInitial extends HomeState {}
 
-final class GetUserDataLoading extends HomeState {}
+class GetUserDataLoading extends HomeState {}
 
-final class GetUserDataSuccess extends HomeState {}
+class GetUserDataSuccess extends HomeState {
+  final UserData user;
 
-final class GetUserDataError extends HomeState {}
+  GetUserDataSuccess(this.user);
+}
+
+class GetUserDataError extends HomeState {
+  final String error;
+
+  GetUserDataError(this.error);
+}

@@ -10,6 +10,7 @@ import 'package:programmin/features/auth/ui/widgets/custom_header.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_text_form_field.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
 import 'package:programmin/features/home/ui/home_screen.dart';
+import 'package:programmin/features/mainScreen/ui/main_shell_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -59,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => HomeScreen()),
+              MaterialPageRoute(builder: (_) => MainShellScreen()),
               (route) => false,
             );
           }
