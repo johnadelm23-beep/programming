@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/about%20app/ui/about_app._screen.dart';
 import 'package:programmin/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
 import 'package:programmin/features/edit/ui/edit_profile_screen.dart';
-import 'package:programmin/features/profile/ui/custom_container_list.dart';
+import 'package:programmin/features/profile/ui/widgets/custom_container_list.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -48,7 +47,6 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: 30.h),
 
               Text(
@@ -69,9 +67,9 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (_, animation, __) =>
+                      pageBuilder: (_, animation, _) =>
                           const EditProfileScreen(),
-                      transitionsBuilder: (_, animation, __, child) {
+                      transitionsBuilder: (_, animation, _, child) {
                         return SlideTransition(
                           position: Tween(
                             begin: const Offset(1, 0),
@@ -94,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (_, animation, _) => const AboutAppScreen(),
-                      transitionsBuilder: (_, animation, __, child) {
+                      transitionsBuilder: (_, animation, _, child) {
                         return SlideTransition(
                           position: Tween(
                             begin: const Offset(1, 0),
@@ -119,6 +117,7 @@ class ProfileScreen extends StatelessWidget {
                   await FirebaseAuth.instance.signOut();
 
                   Navigator.pushAndRemoveUntil(
+                    // ignore: use_build_context_synchronously
                     context,
                     MaterialPageRoute(
                       builder: (_) => BlocProvider(
