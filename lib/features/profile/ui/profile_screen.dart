@@ -8,15 +8,14 @@ import 'package:programmin/features/about%20app/ui/about_app._screen.dart';
 import 'package:programmin/features/auth/cubit/cubit/auth_cubit.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
 import 'package:programmin/features/edit/ui/edit_profile_screen.dart';
+import 'package:programmin/features/profile/ui/widgets/custom_app_bar_profile.dart';
 import 'package:programmin/features/profile/ui/widgets/custom_container_list.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -25,30 +24,8 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30.r,
-                    backgroundColor: AppColors.primaryPurple,
-
-                    backgroundImage: user?.photoURL != null
-                        ? NetworkImage(user!.photoURL!)
-                        : null,
-
-                    child: user?.photoURL == null
-                        ? Icon(IconlyLight.profile)
-                        : null,
-                  ),
-
-                  SizedBox(width: 12.w),
-                  Text(
-                    "My Profile",
-                    style: TextStyle(fontSize: 30.sp, color: Colors.white),
-                  ),
-                ],
-              ),
+              CustomAppBarProfile(user: user),
               SizedBox(height: 30.h),
-
               Text(
                 "Settings",
                 style: TextStyle(

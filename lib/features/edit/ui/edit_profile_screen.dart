@@ -1,10 +1,12 @@
 import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
+
 import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/edit/ui/widgets/custom_avatar.dart';
 import 'package:programmin/features/edit/ui/widgets/custom_floating_dots.dart';
@@ -23,18 +25,19 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen>
     with TickerProviderStateMixin {
-  final nameController = TextEditingController();
-  final user = FirebaseAuth.instance.currentUser;
+  final TextEditingController nameController = TextEditingController();
+
+  User? get user => FirebaseAuth.instance.currentUser;
 
   bool isLoading = false;
 
-  late AnimationController floatController;
-  late AnimationController buttonController;
-  late AnimationController fadeController;
+  late final AnimationController floatController;
+  late final AnimationController buttonController;
+  late final AnimationController fadeController;
 
-  late Animation<double> fade;
-  late Animation<Offset> slide;
-  late Animation<double> scale;
+  late final Animation<double> fade;
+  late final Animation<Offset> slide;
+  late final Animation<double> scale;
 
   final List<Dot> dots = [];
 
@@ -71,19 +74,21 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     );
 
     dots.addAll(
-      List.generate(15, (i) {
-        return Dot(
+      List.generate(
+        15,
+        (_) => Dot(
           dx: Random().nextDouble(),
           dy: Random().nextDouble(),
           speed: Random().nextDouble() * 2 + 0.5,
           size: Random().nextDouble() * 6 + 2,
-        );
-      }),
+        ),
+      ),
     );
   }
 
   @override
   void dispose() {
+    nameController.dispose();
     floatController.dispose();
     buttonController.dispose();
     fadeController.dispose();
@@ -91,25 +96,31 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
   Future<void> updateProfile() async {
+    final newName = nameController.text.trim();
+
+    if (newName.isEmpty || user == null) return;
+
     setState(() => isLoading = true);
 
     buttonController.forward(from: 0);
 
     try {
-      final newName = nameController.text.trim();
-
-      await user?.updateDisplayName(newName);
+      await user!.updateDisplayName(newName);
 
       await FirebaseFirestore.instance
           .collection("users")
           .doc(user!.uid)
           .update({"name": newName});
 
-      await user?.reload();
+      await FirebaseAuth.instance.currentUser?.reload();
 
       if (mounted) {
         context.read<HomeCubit>().getUserData();
       }
+
+      setState(() {});
+
+      if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -120,12 +131,16 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
       Navigator.pop(context);
     } catch (e) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error: $e"), backgroundColor: Colors.red),
       );
+    } finally {
+      if (mounted) {
+        setState(() => isLoading = false);
+      }
     }
-
-    setState(() => isLoading = false);
   }
 
   @override
@@ -136,7 +151,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       backgroundColor: AppColors.backgroundColor,
       body: Stack(
         children: [
-          // ================= BACKGROUND =================
           Container(
             decoration: const BoxDecoration(
               gradient: RadialGradient(
@@ -144,7 +158,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
             ),
           ),
-
           CustomFloatingDots(
             floatController: floatController,
             size: size,
@@ -162,26 +175,19 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     child: Column(
                       children: [
                         SizedBox(height: 20.h),
-
                         CustomAvatar(user: user),
-
                         SizedBox(height: 30.h),
-
                         CustomTextFormFieldName(
                           icon: IconlyLight.profile,
                           controller: nameController,
                         ),
                         SizedBox(height: 20.h),
-
                         CustomTextFormFieldEmail(user: user),
-
                         const Spacer(),
-
                         CustomSaveButton(
                           onTap: updateProfile,
                           isLoading: isLoading,
                         ),
-
                         SizedBox(height: 20.h),
                       ],
                     ),

@@ -10,7 +10,6 @@ import 'package:programmin/features/auth/ui/widgets/custom_sign_in_google_button
 import 'package:programmin/features/auth/ui/widgets/custom_text_form_field.dart';
 import 'package:programmin/features/auth/ui/widgets/custom_text_rich.dart';
 import 'package:programmin/features/home/cubit/cubit/home_cubit.dart';
-import 'package:programmin/features/home/ui/home_screen.dart';
 import 'package:programmin/features/mainScreen/ui/main_shell_screen.dart';
 
 class LoginScreen extends StatefulWidget {

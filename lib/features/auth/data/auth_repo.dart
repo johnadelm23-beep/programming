@@ -7,6 +7,7 @@ import 'package:programmin/features/auth/data/models/user_model.dart';
 class AuthRepo {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  // REGISTER
   static Future<UserCredential> register({
     required String name,
     required String email,
@@ -20,136 +21,108 @@ class AuthRepo {
 
       await response.user!.updateDisplayName(name);
 
-      debugPrint(response.user?.uid ?? "");
-
-      addUser(
+      await addUser(
         name: name,
         email: email,
         password: password,
         uId: response.user!.uid,
       );
+
       return response;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw 'The password provided is too weak.';
-      } else if (e.code == 'email-already-in-use') {
-        throw 'The account already exists for that email.';
-      } else if (e.code == 'invalid-email') {
-        throw 'Invalid email address.';
-      } else {
-        throw e.message ?? 'Authentication Failed';
-      }
-    } catch (e) {
-      throw e.toString();
+      throw e.message ?? "Register error";
     }
   }
 
+  // LOGIN
   static Future<UserCredential> login({
     required String email,
     required String password,
   }) async {
     try {
-      final response = await _firebaseAuth.signInWithEmailAndPassword(
+      return await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      return response;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        throw 'Wrong password provided.';
-      } else if (e.code == 'invalid-email') {
-        throw 'Invalid email address.';
-      } else if (e.code == 'invalid-credential') {
-        throw 'Invalid email or password.';
-      } else {
-        throw e.message ?? 'Login failed';
-      }
     } catch (e) {
       throw e.toString();
     }
   }
 
+  // ADD USER TO FIRESTORE
   static Future<void> addUser({
     required String name,
     required String email,
     required String password,
     required String uId,
   }) async {
-    try {
-      FirebaseFirestore.instance.collection("users").doc(uId).set({
-        "name": name,
-        "email": email,
-        "password": password,
-        "isBlocked": false,
-      });
-      // ignore: empty_catches
-    } catch (e) {}
+    await FirebaseFirestore.instance.collection("users").doc(uId).set({
+      "name": name,
+      "email": email,
+      "password": password,
+      "isBlocked": false,
+      "isAdmin": false,
+    });
   }
 
+  // GET USER DATA
   static Future<UserData?> getUserData() async {
-    try {
-      final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUser = FirebaseAuth.instance.currentUser;
 
-      if (currentUser == null) return null;
+    if (currentUser == null) return null;
 
-      final user = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(currentUser.uid)
-          .get();
+    final doc = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUser.uid)
+        .get();
 
-      final data = user.data();
+    final data = doc.data();
 
-      if (data?["isBlocked"] == true) return null;
+    if (data == null) return null;
 
-      return UserData.fromJson(data ?? {});
-    } catch (e) {
-      return null;
-    }
+    if (data["isBlocked"] == true) return null;
+
+    return UserData.fromJson(data);
   }
 
+  // GOOGLE SIGN IN
   static Future<UserCredential> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        throw "Google sign-in cancelled";
-      }
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(
-        credential,
-      );
-      final user = userCredential.user;
-      if (user == null) {
-        throw "User not found";
-      }
-      final userRef = FirebaseFirestore.instance
-          .collection("users")
-          .doc(user.uid);
-      final doc = await userRef.get();
-      final data = doc.data();
-      if (data != null && data["isBlocked"] == true) {
-        await FirebaseAuth.instance.signOut();
-        throw "This account is blocked";
-      }
-      await userRef.set({
-        "uid": user.uid,
-        "name": user.displayName ?? "User",
-        "email": user.email ?? "",
-        "photo": user.photoURL ?? "",
-        "isBlocked": false,
-        "provider": "google",
-        "createdAt": FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
-      return userCredential;
-    } catch (e) {
-      throw e.toString();
+    final googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      throw "Google sign-in cancelled";
     }
+
+    final googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final userCredential = await _firebaseAuth.signInWithCredential(credential);
+
+    final user = userCredential.user!;
+    final ref = FirebaseFirestore.instance.collection("users").doc(user.uid);
+
+    final doc = await ref.get();
+
+    if (doc.exists && doc.data()?["isBlocked"] == true) {
+      await _firebaseAuth.signOut();
+      throw "Blocked account";
+    }
+
+    await ref.set({
+      "uid": user.uid,
+      "name": user.displayName ?? "User",
+      "email": user.email ?? "",
+      "photo": user.photoURL ?? "",
+      "isBlocked": false,
+      "isAdmin": false,
+      "provider": "google",
+      "createdAt": FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+
+    return userCredential;
   }
 }

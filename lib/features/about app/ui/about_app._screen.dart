@@ -73,7 +73,6 @@ class _AboutAppScreenState extends State<AboutAppScreen>
 
   void _onJoinTap() {
     joinController.forward(from: 0);
-
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text("Welcome to Developer Community!"),
@@ -85,10 +84,8 @@ class _AboutAppScreenState extends State<AboutAppScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-
       body: Stack(
         children: [
           Container(
@@ -98,7 +95,6 @@ class _AboutAppScreenState extends State<AboutAppScreen>
               ),
             ),
           ),
-
           CustomFloatingIcons(
             size: size,
             icons: icons,
@@ -114,7 +110,6 @@ class _AboutAppScreenState extends State<AboutAppScreen>
                   child: Column(
                     children: [
                       SizedBox(height: 30.h),
-
                       CustomHeartContainer(),
                       SizedBox(height: 18.h),
 
@@ -135,19 +130,14 @@ class _AboutAppScreenState extends State<AboutAppScreen>
                       ),
 
                       SizedBox(height: 30.h),
-
                       CustomGlassCard(),
-
                       SizedBox(height: 30.h),
-
                       CustomDevContainer(),
                       const Spacer(),
-
                       CustomJoinButton(
                         joinController: joinController,
                         onTap: _onJoinTap,
                       ),
-
                       SizedBox(height: 20.h),
                     ],
                   ),
