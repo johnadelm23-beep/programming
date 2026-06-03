@@ -38,11 +38,9 @@ Demonstrate clean and scalable Flutter architecture
 Practice real-world mobile application development
 📸 Screenshots
 
-Add screenshots here to showcase your UI and features
+Below are some previews of the Programming Learning App UI:
 
-![Home Screen](assets/screenshots/home.png)
-![Lesson Screen](assets/screenshots/lesson.png)
-![Quiz Screen](assets/screenshots/quiz.png)
+<div align="center"> <img src="https://github.com/user-attachments/assets/7b7ce557-aab8-4d4b-84b0-d10434c22ff3" width="250"/> <img src="https://github.com/user-attachments/assets/eb09f995-0773-48c5-ae88-d2d6adf67e97" width="250"/> <img src="https://github.com/user-attachments/assets/f837e165-76d0-47e0-b4a2-7b0627237bb6" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/a04d774a-402d-40a8-9665-6953fca1ec79" width="250"/> <img src="https://github.com/user-attachments/assets/50742666-2905-4b4f-b776-11f799694f4b" width="250"/> <img src="https://github.com/user-attachments/assets/150284ef-4a60-4ea6-9883-f7d3b9bc1df8" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/c232b7d8-7ca5-41c1-a3a5-1350a4d8fdc3" width="250"/> <img src="https://github.com/user-attachments/assets/9846f9e7-d17f-4cc4-8840-f231dafdcb3e" width="250"/> <img src="https://github.com/user-attachments/assets/6b437a36-940b-47ca-9111-7a8f20301d5d" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/9158747a-0376-4017-909c-ec19128fcf0b" width="250"/> <img src="https://github.com/user-attachments/assets/f08f7ccd-e00b-4e9c-a8ff-2103c3b96f0d" width="250"/> </div>
 ⚙️ Getting Started
 
 Follow these steps to run the project locally:
@@ -55,7 +53,7 @@ flutter pub get
 flutter run
 🔐 Notes
 Make sure Firebase is properly configured before running the project.
-Keep sensitive data (API keys, environment variables) inside a .env file and exclude it from version control.
+Store sensitive data (API keys, environment variables) in a .env file and exclude it from version control.
 Do not upload Firebase config files publicly unless properly secured.
 👨‍💻 Author
 
@@ -65,8 +63,4 @@ GitHub: https://github.com/your-username
 LinkedIn: https://linkedin.com/in/your-profile
 ⭐ If you like this project
 
-📸 Screenshots
-
-Below are some previews of the Programming Learning App UI:
-
-<div align="center"> <img src="https://github.com/user-attachments/assets/7b8ce557-aab8-4d4b-84b0-d10434c22ff3" width="250"/> <img src="https://github.com/user-attachments/assets/eb09f995-0773-48c5-ae88-d2d6adf67e97" width="250"/> <img src="https://github.com/user-attachments/assets/f837e165-76d0-47e0-b4a2-7b0627237bb6" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/a04d774a-402d-40a8-9665-6953fca1ec79" width="250"/> <img src="https://github.com/user-attachments/assets/50742666-2905-4b4f-b776-11f799694f4b" width="250"/> <img src="https://github.com/user-attachments/assets/150284ef-4a60-4ea6-9883-f7d3b9bc1df8" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/c232b7d8-7ca5-41c1-a3a5-1350a4d8fdc3" width="250"/> <img src="https://github.com/user-attachments/assets/9846f9e7-d17f-4cc4-8840-f231dafdcb3e" width="250"/> <img src="https://github.com/user-attachments/assets/6b437a36-940b-47ca-9111-7a8f20301d5d" width="250"/> </div> <div align="center"> <img src="https://github.com/user-attachments/assets/9158747a-0376-4017-909c-ec19128fcf0b" width="250"/> <img src="https://github.com/user-attachments/assets/f08f7ccd-e00b-4e9c-a8ff-2103c3b96f0d" width="250"/> </div>
+Give it a ⭐ on GitHub and share it with others who are learning programming!
