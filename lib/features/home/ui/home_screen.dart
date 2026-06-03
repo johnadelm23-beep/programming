@@ -9,6 +9,7 @@ import 'package:programmin/features/game/ui/logic_game.dart';
 import 'package:programmin/features/home/cubit/cubit/home_cubit.dart';
 import 'package:programmin/features/home/cubit/cubit/home_state.dart';
 import 'package:programmin/features/home/ui/widgets/custm_card_container.dart';
+import 'package:programmin/features/home/ui/widgets/custom_animated_item.dart';
 import 'package:programmin/features/home/ui/widgets/custom_fun_card.dart';
 import 'package:programmin/features/home/ui/widgets/custom_header_row.dart';
 import 'package:programmin/features/home/ui/widgets/custom_hero_card.dart';
@@ -65,17 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _animatedItem(0, CustomHeaderRow(user: user.name ?? "")),
+                      CustomAnimatedItem(
+                        index: 0,
+                        child: CustomHeaderRow(user: user.name ?? ""),
+                      ),
 
                       SizedBox(height: 20.h),
 
-                      _animatedItem(1, CustomHeroCard()),
+                      CustomAnimatedItem(index: 1, child: CustomHeroCard()),
 
                       SizedBox(height: 20.h),
 
-                      _animatedItem(
-                        2,
-                        CustomSectionTitle(title: "Explore Worlds"),
+                      CustomAnimatedItem(
+                        index: 2,
+                        child: CustomSectionTitle(title: "Explore Worlds"),
                       ),
 
                       SizedBox(height: 12.h),
@@ -83,9 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: _animatedItem(
-                              3,
-                              CustmCardContainer(
+                            child: CustomAnimatedItem(
+                              index: 3,
+                              child: CustmCardContainer(
                                 title: "Code Lab",
                                 icon: Icons.code,
                                 onTap: () {},
@@ -94,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(width: 10.w),
                           Expanded(
-                            child: _animatedItem(
-                              4,
-                              CustmCardContainer(
+                            child: CustomAnimatedItem(
+                              index: 4,
+                              child: CustmCardContainer(
                                 title: "Logic Game",
                                 icon: Icons.gamepad,
                                 onTap: () {
@@ -141,18 +145,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       SizedBox(height: 20.h),
 
-                      _animatedItem(
-                        5,
-                        CustomSectionTitle(title: "Daily Inspiration"),
+                      CustomAnimatedItem(
+                        index: 5,
+                        child: CustomSectionTitle(title: "Daily Inspiration"),
                       ),
 
                       SizedBox(height: 12.h),
 
-                      _animatedItem(6, CustomQouteCard()),
+                      CustomAnimatedItem(index: 6, child: CustomQouteCard()),
 
                       SizedBox(height: 20.h),
 
-                      _animatedItem(7, CustomFunCard()),
+                      CustomAnimatedItem(index: 7, child: CustomFunCard()),
 
                       SizedBox(height: 30.h),
                     ],
@@ -164,23 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _animatedItem(int index, Widget child) {
-    return TweenAnimationBuilder<double>(
-      duration: Duration(milliseconds: 350 + (index * 120)),
-      tween: Tween(begin: 0, end: 1),
-      curve: Curves.easeOutCubic,
-      builder: (context, value, _) {
-        return Opacity(
-          opacity: value,
-          child: Transform.translate(
-            offset: Offset(0, (1 - value) * 25),
-            child: Transform.scale(scale: 0.95 + (value * 0.05), child: child),
-          ),
-        );
-      },
     );
   }
 }

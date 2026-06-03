@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/courses/ui/models/course.dart';
-import 'package:programmin/features/courses/ui/courses_screen.dart';
+import 'package:programmin/features/courses/ui/playlist_screen.dart';
+import 'package:programmin/features/courses/ui/widgets/custom_container_play.dart';
 
 class CourseCard extends StatelessWidget {
   final CourseModel course;
@@ -213,21 +214,7 @@ class CourseCard extends StatelessWidget {
 
         child: Row(
           children: [
-            Container(
-              width: 70.w,
-              height: 70.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14.r),
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.primaryPurple.withOpacity(0.4),
-                    AppColors.primaryBlue.withOpacity(0.2),
-                  ],
-                ),
-              ),
-              child: const Icon(IconlyBold.play, color: Colors.white),
-            ),
-
+            CustomContainerPlay(),
             SizedBox(width: 12.w),
 
             Expanded(
