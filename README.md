@@ -1,66 +1,50 @@
-# 📱 Programming Learning App
+Programming Learning App
 
-A Flutter-based educational mobile application designed to help beginners learn programming concepts in an interactive and structured way.
+A Flutter-based educational mobile application designed to help beginners learn programming concepts through structured lessons, videos, and interactive quizzes.
 
----
+Overview
 
-## 🚀 Features
+This project focuses on delivering a simple and effective learning experience for programming beginners. It combines structured content, quizzes, and video lessons in a clean and modern UI.
 
-- 📚 Structured programming lessons (C++, Dart, etc.)
-- 🎥 Video-based learning modules
-- 🧠 Quizzes after each lesson
-- 🔐 Authentication (Login / Register)
-- 🌙 Clean dark UI design
-- 📱 Responsive UI using `flutter_screenutil`
-- 🔔 Modern user experience
-
----
-
-## 🛠️ Tech Stack
-
-- Flutter (Dart)
-- Firebase (Auth / Future features)
-- ScreenUtil (Responsive UI)
-- Material Design
-- Custom reusable widgets
-
----
-
-## 📂 Project Structure
+Features
+Structured programming lessons (C++, Dart, and more)
+Video-based learning modules
+Interactive quizzes after each lesson
+User authentication (login and registration)
+Clean and modern UI design
+Responsive layout using flutter_screenutil
+Reusable and scalable widget architecture
+Tech Stack
+Flutter (Dart)
+Firebase Authentication (and future backend features)
+Material Design
+flutter_screenutil
+Custom reusable components
+Project Structure
 lib/
-│
+├── core/        # App core (themes, constants, utilities)
+├── features/    # Main app features (auth, home, courses)
+├── widgets/     # Reusable UI components
+└── main.dart    # App entry point
+Goal of the Project
 
-├── core/ # App core (theme, utils, constants)
+This project is built to:
 
-├── features/ # App features (auth, home, courses)
+Help beginners learn programming fundamentals
+Provide structured and interactive learning experience
+Demonstrate clean Flutter project architecture
+Practice real-world mobile app development
+Screenshots
 
-├── widgets/ # Reusable widgets
+Add screenshots of the app here to showcase UI and features.
 
-└── main.dart
-
-
----
-
-## 🎯 Goal of the App
-
-This project is built for:
-
-- Beginners who want to learn programming from scratch
-- Students who prefer interactive learning
-- Practicing Flutter development with real-world structure
-
----
-
-## 📸 Screenshots
-
-> Add your app screenshots here later
-
----
-
-## ⚙️ Getting Started
-
-### 1. Clone the repository
-```bash
+Getting Started
+Clone the repository
 git clone https://github.com/your-username/programming-app.git
+Install dependencies
 flutter pub get
+Run the app
 flutter run
+Notes
+Make sure Firebase is properly configured before running the project.
+Environment variables should be stored in .env and excluded from version control.
