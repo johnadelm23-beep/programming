@@ -57,7 +57,7 @@ This project was built to:
 
 ---
 
-## 📸 Screenshots
+## 📸 Overview
 
 Below are some previews of the Programming Learning App UI:
 
