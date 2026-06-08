@@ -38,9 +38,13 @@ The project demonstrates clean architecture principles and scalable Flutter deve
 
 
 lib/
+
 ├── core/ # App core (themes, constants, utilities)
+
 ├── features/ # Main features (auth, home, courses)
+
 ├── widgets/ # Reusable UI components
+
 └── main.dart # App entry point
 
 
@@ -57,7 +61,7 @@ This project was built to:
 
 ---
 
-## 📸 Screenshots
+## 📸 Overview
 
 Below are some previews of the Programming Learning App UI:
 
