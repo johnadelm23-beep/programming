@@ -24,7 +24,7 @@ class CustomAppBarProfile extends StatelessWidget {
 
         SizedBox(width: 12.w),
         Text(
-          "My Profile",
+          "${user!.displayName}",
           style: TextStyle(fontSize: 30.sp, color: Colors.white),
         ),
       ],

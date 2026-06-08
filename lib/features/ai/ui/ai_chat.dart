@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:programmin/core/services/ai_service_chat.dart';
 import 'package:programmin/core/theme/app_colors.dart';
-import 'package:programmin/core/services/gemini_service_quiz.dart';
 import 'package:programmin/core/widgets/code_widget.dart';
 import 'package:programmin/features/ai/ui/widgets/custom_animated_container.dart';
 import 'package:programmin/features/ai/ui/widgets/custom_app_bar_chat_screen.dart';

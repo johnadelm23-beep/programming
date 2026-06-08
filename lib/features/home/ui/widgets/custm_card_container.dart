@@ -9,30 +9,43 @@ class CustmCardContainer extends StatelessWidget {
     required this.icon,
     this.onTap,
   });
+
   final String title;
   final IconData icon;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(24.r),
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(16.r),
+        height: 145.h,
+        padding: EdgeInsets.all(18.r),
         decoration: BoxDecoration(
           color: AppColors.cardColor,
-          borderRadius: BorderRadius.circular(18.r),
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(color: Colors.white.withOpacity(.05)),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: AppColors.primaryPurple),
-            SizedBox(height: 10.h),
+            Container(
+              padding: EdgeInsets.all(14.r),
+              decoration: BoxDecoration(
+                color: AppColors.primaryPurple.withOpacity(.15),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, size: 30.sp, color: AppColors.primaryPurple),
+            ),
+            SizedBox(height: 14.h),
             Text(
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],

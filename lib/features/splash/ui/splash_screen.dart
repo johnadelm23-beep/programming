@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:programmin/core/theme/app_colors.dart';
 import 'package:programmin/features/auth/ui/login_screen.dart';
-import 'package:programmin/features/home/ui/home_screen.dart';
 import 'package:programmin/features/mainScreen/ui/main_shell_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,10 +16,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
           builder: (c) {
